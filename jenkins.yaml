@@ -456,9 +456,9 @@ unclassified:
     }
   operationsCenterRootAction:
     connectionDetails: "----- BEGIN CONNECTION DETAILS -----
-H4sIAAAAAAAA/w2NSw7CMAwF75I1Vvoxksk1OEE+DkVYNUpdsUDcHc9y5knvGx4j7xZSIC7UCxag
-BVfA3K9AEzWo84K9Tbe5ZA6X8Gy+XaHqbkNFeKDLc4jbzeydYhStWTY9LJETPX+43LW+2G96loN/
-f6f56Up2AAAA
+H4sIAAAAAAAA/xWMQQ7DIAwE/+JzLWIaBcI38gIwpqmCQpRQ9VD173XnNprVfuBxxr1DgDmLJT8m
+pEIDjnNmTNE7vPPkbHHDREJwg2fWrUXmv7zOqrb2fgRjauNY13b14BWj+S1pabyJ3pdYL/n+AIZM
+5/VuAAAA
 ----- END CONNECTION DETAILS -----\n"
   pipeline-model-docker: {
     }
