@@ -455,9 +455,11 @@ unclassified:
   nodeProperties: {
     }
   operationsCenterRootAction:
-    connectionDetails: "----- BEGIN CONNECTION DETAILS -----\nH4sIAAAAAAAA/w2MQQ6DMAwE/+JzreCkEiHf4AXGcUrVqEEQxAH17/XcRrPaG147fzskCEIykCdk\r\
-      \nHxd8ylhwyhww61BGCurjJPCAd7YtoYg3Ofdqtva+JedqE65rO3qKhrN86TI3+ajdF66H/v4WkVpk\r\
-      \nbgAAAA==\r\n----- END CONNECTION DETAILS -----\n"
+    connectionDetails: "----- BEGIN CONNECTION DETAILS -----
+H4sIAAAAAAAA/w2NSw7CMAwF75I1Vvoxksk1OEE+DkVYNUpdsUDcHc9y5knvGx4j7xZSIC7UCxag
+BVfA3K9AEzWo84K9Tbe5ZA6X8Gy+XaHqbkNFeKDLc4jbzeydYhStWTY9LJETPX+43LW+2G96loN/
+f6f56Up2AAAA
+----- END CONNECTION DETAILS -----\n"
   pipeline-model-docker: {
     }
   plugin: {
