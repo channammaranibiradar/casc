@@ -1,3 +1,167 @@
 removeStrategy:
   rbac: SYNC
   items: NONE
+items:
+- kind: pipeline
+  name: Hello-World
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: |
+        pipeline {
+            agent any
+
+            stages {
+                stage('Hello') {
+                    steps {
+                        echo 'Hello World'
+                    }
+                }
+            }
+        }
+  description: ''
+  disabled: false
+  displayName: Hello-World
+  properties:
+  - buildDiscarder:
+      strategy:
+        logRotator:
+          removeLastBuild: false
+          artifactDaysToKeep: -1
+          artifactNumToKeep: -1
+          daysToKeep: -1
+          numToKeep: 2
+  resumeBlocked: false
+- kind: pipeline
+  name: pipeline1
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: "pipeline {\n     agent {\n        label 'linux'  \n    }\n\n    stages\
+        \ {\n        stage('Hello') {\n            steps {\n                echo 'Hello\
+        \ World'\n            }\n        }\n    }\n}\n"
+  description: ''
+  disabled: false
+  displayName: pipeline1
+  resumeBlocked: false
+- kind: pipeline
+  name: pipeline2
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: |
+        pipeline {
+            agent { label 'linux' }
+
+            stages {
+                stage('Hello') {
+                    steps {
+                        echo 'Hello World'
+                    }
+                }
+            }
+        }
+  description: ''
+  disabled: false
+  displayName: pipeline2
+  resumeBlocked: false
+- kind: pipeline
+  name: pipeline3
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: "pipeline {\n    agent {\n        label 'linux'\n    }\n    \n    stages\
+        \ {\n        stage('Debug Workspace') {\n            steps {\n           \
+        \     sh '''\n                    echo \"=== REAL WORKSPACE INFO ===\"\n \
+        \                   echo \"PWD: $PWD\"\n                    echo \"Real path:\
+        \ $(pwd -P)\"\n                    echo \"Directory contents:\"\n        \
+        \            ls -la\n                    echo \"Creating test file...\"\n\
+        \                    echo \"Test at $(date)\" > test_file.txt\n          \
+        \          ls -la\n                '''\n                // Archive the test\
+        \ file\n                archiveArtifacts artifacts: 'test_file.txt', fingerprint:\
+        \ true\n            }\n        }\n    }\n}"
+  description: ''
+  disabled: false
+  displayName: pipeline3
+  resumeBlocked: false
+- kind: pipeline
+  name: test
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: |
+        // Uses Declarative syntax to run commands inside a container.
+        pipeline {
+            agent {
+                kubernetes {
+                    // Rather than inline YAML, in a multibranch Pipeline you could use: yamlFile 'jenkins-pod.yaml'
+                    // Or, to avoid YAML:
+                    // containerTemplate {
+                    //     name 'shell'
+                    //     image 'ubuntu'
+                    //     command 'sleep'
+                    //     args 'infinity'
+                    // }
+                    yaml '''
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: shell
+            image: ubuntu
+            command:
+            - sleep
+            args:
+            - infinity
+            securityContext:
+              # ubuntu runs as root by default, it is recommended or even mandatory in some environments (such as pod security admission "restricted") to run as a non-root user.
+              runAsUser: 1000
+        '''
+                    // Can also wrap individual steps:
+                    // container('shell') {
+                    //     sh 'hostname'
+                    // }
+                    defaultContainer 'shell'
+                    retries 2
+                }
+            }
+            stages {
+                stage('Main') {
+                    steps {
+                        sh 'hostname'
+                    }
+                }
+            }
+        }
+  description: ''
+  disabled: false
+  displayName: test
+  resumeBlocked: false
+- kind: pipeline
+  name: test-1
+  concurrentBuild: true
+  definition:
+    cpsFlowDefinition:
+      sandbox: true
+      script: |
+        pipeline {
+            agent any
+
+            stages {
+                stage('Hello') {
+                    steps {
+                        echo 'Hello World'
+                        sleep 120
+                    }
+                }
+            }
+        }
+  description: ''
+  disabled: false
+  displayName: test-1
+  resumeBlocked: false
